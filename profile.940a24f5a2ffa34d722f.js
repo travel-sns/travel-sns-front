@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["profile"],{"../src/Container/Profile/Profile.js":function(e,n,r){"use strict";r.r(n);var o=r("../node_modules/react/index.js"),a=r.n(o);n.default=function(e){var n=e.username,r=e.name;return a.a.createElement("h1",null,"Hi ",n," ",r,"!")}}}]);
