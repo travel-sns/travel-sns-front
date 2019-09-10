@@ -2,6 +2,8 @@
 
 - 리액트 셋팅 프로젝트입니다.
 
+https://travel-sns.github.io/travel-sns-front/
+
 ## basic webpack setting
 
 - 웹팩 설정
@@ -84,10 +86,6 @@ module.exports = {
     entry: {
         app: [APP_DIR + '/index.js']
     },
-    output: {
-        filename: '[name].bundle.js',
-        path: BUILD_DIR
-    },
     plugins: [
         //creation of HTML files to serve your webpack bundles
         new HtmlWebpackPlugin({
@@ -130,13 +128,20 @@ const APP_DIR = path.resolve(ROOT, 'src');
 const BUILD_DIR = path.resolve(ROOT, 'dist');
 
 module.exports = {
-    mode: 'production'
+    mode: 'production',
+    output: {
+      filename: "[name].[hash].js",
+      chunkFilename: "[name].[hash].js",
+      path: BUILD_DIR,
+      publicPath: "/webpack-react-setting/"
+    }
 }
 ```
 
 #### webpack.config.dev.js
 
 - HotModuleReplacementPlugin : 소스 변경 시 바로 적용
+- devtool : 용도에 맞게 쓰기
 
 ```js
 const webpack = require('webpack');
@@ -147,25 +152,36 @@ const APP_DIR = path.resolve(ROOT, 'src');
 const BUILD_DIR = path.resolve(ROOT, 'dist');
 
 module.exports = {
-    mode: 'development',
-    devtool: 'inline-source-map',
-    devServer: {
-        //By default this is localhost
-        host: 'localhost',
-        //Enable webpack's Hot Module Replacement
-        hot: true,
-        //Tell the server where to serve content from
-        contentBase: BUILD_DIR,
-        // This option allows you to whitelist services that are allowed to access the dev server.
-        allowedHosts: ['host.com'],
-        //When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses
-        historyApiFallback: true,
-        //Shows a full-screen overlay in the browser when there are compiler errors or warnings
-        overlay: true
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ]
+  mode: "development",
+  //https://webpack.js.org/configuration/devtool/#devtool
+  devtool: "cheap-module-source-map", //디버깅용
+  output: {
+    filename: "[name].[hash].js",
+    path: BUILD_DIR,
+    publicPath: "/",
+    pathinfo: true
+  },
+  devServer: {
+    index: "index.html",
+    host: "localhost", //By default this is localhost
+    port: 8080,
+    hot: true, //Enable webpack's Hot Module Replacement
+    compress: true,
+    contentBase: path.join(ROOT, "public"), //Tell the server where to serve content from, path.join(__dirname, 'public')
+    allowedHosts: ["host.com"], // This option allows you to whitelist services that are allowed to access the dev server.
+    historyApiFallback: true, //When using the HTML5 History API, the index.html page will likely have to be served in place of any 404 responses
+    overlay: true, //Shows a full-screen overlay in the browser when there are compiler errors or warnings
+    clientLogLevel: "warning", //may be too verbose, you can turn logging off by setting it to 'silent'
+    disableHostCheck: false, //When set to true this option bypasses host checking
+    openPage: "webpack-react-setting" //Specify a page to navigate to when opening the browser
+    // proxy: {
+    //   "/api": {
+    //     target: "https://other-server.example.com",
+    //     secure: false //A backend server running on HTTPS
+    //   }
+    // }
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()]
 }
 ```
 
@@ -675,10 +691,10 @@ const withSplitting = getComponent => {
   return WithSplitting;
 };
 
-export const About = withSplitting(() => import('Src/Container/About/About'));
-export const User = withSplitting(() => import('Src/Container/User/User'));
-export const SuperMarket = withSplitting(() => import('Src/Container/SuperMarket/SuperMarket'));
-export const Profile = withSplitting(() => import('Src/Container/Profile/Profile'));
+export const About = withSplitting(() => import(/* webpackChunkName: "about" */'Src/Container/About/About'));
+export const User = withSplitting(() => import(/* webpackChunkName: "user" */'Src/Container/User/User'));
+export const SuperMarket = withSplitting(() => import(/* webpackChunkName: "superMarket" */'Src/Container/SuperMarket/SuperMarket'));
+export const Profile = withSplitting(() => import(/* webpackChunkName: "profile" */'Src/Container/Profile/Profile'));
 
 ```
 
@@ -711,4 +727,33 @@ const path = [
 ];
 
 export default path;
+```
+
+# prod build server optimization
+
+```js
+optimization: {
+  namedModules: true, //Tells webpack to use readable module identifiers for better debugging
+  namedChunks: true, //webpack to use readable chunk identifiers for better debugging
+  moduleIds: "named", //Readable ids for better debugging.
+  mangleWasmImports: true, //tells webpack to reduce the size of WASM by changing imports to shorter strings.
+  providedExports: true, //Tells webpack to figure out which exports are provided by modules to generate more efficient code for export * from
+  removeAvailableModules: true, //Tells webpack to detect and remove modules from chunks when these modules are already included in all parents
+  usedExports: true, //Tells webpack to determine used exports for each module
+  concatenateModules: true, //Tells webpack to find segments of the module graph which can be safely concatenated into a single module
+  minimizer: [
+    //https://webpack.js.org/plugins/terser-webpack-plugin/
+    new TerserPlugin({
+      parallel: true, //Use multi-process parallel running to improve the build speed
+      sourceMap: true, //Use source maps to map error message locations to modules
+      //https://github.com/terser/terser#minify-options
+      terserOptions: {
+        mangle: true, //false to skip mangling names
+        compress: {
+          drop_console: true //Pass true to discard calls to console.* functions
+        }
+      }
+    })
+  ]
+}
 ```

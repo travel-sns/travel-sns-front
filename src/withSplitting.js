@@ -28,7 +28,7 @@ const withSplitting = getComponent => {
   return WithSplitting;
 };
 
-export const About = withSplitting(() => import('Src/Container/About/About'));
-export const User = withSplitting(() => import('Src/Container/User/User'));
-export const SuperMarket = withSplitting(() => import('Src/Container/SuperMarket/SuperMarket'));
-export const Profile = withSplitting(() => import('Src/Container/Profile/Profile'));
+export const About = withSplitting(() => import(/* webpackChunkName: "about" */'Src/Container/About/About'));
+export const User = withSplitting(() => import(/* webpackChunkName: "user" */'Src/Container/User/User'));
+export const SuperMarket = withSplitting(() => import(/* webpackChunkName: "superMarket" */'Src/Container/SuperMarket/SuperMarket'));
+export const Profile = withSplitting(() => import(/* webpackChunkName: "profile" */'Src/Container/Profile/Profile'));
