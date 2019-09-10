@@ -12,7 +12,7 @@ module.exports = {
     filename: "[name].[hash].js",
     chunkFilename: "[name].[hash].js",
     path: BUILD_DIR,
-    publicPath: "/webpack-react-setting/"
+    publicPath: "/travel-sns-front/"
   },
   context: path.resolve(ROOT, "public"), //The base directory, an absolute path
   optimization: {

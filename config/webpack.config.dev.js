@@ -26,7 +26,7 @@ module.exports = {
     overlay: true, //Shows a full-screen overlay in the browser when there are compiler errors or warnings
     clientLogLevel: "warning", //may be too verbose, you can turn logging off by setting it to 'silent'
     disableHostCheck: false, //When set to true this option bypasses host checking
-    openPage: "webpack-react-setting" //Specify a page to navigate to when opening the browser
+    openPage: "travel-sns-front" //Specify a page to navigate to when opening the browser
     // proxy: {
     //   "/api": {
     //     target: "https://other-server.example.com",

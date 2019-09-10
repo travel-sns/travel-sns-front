@@ -1,7 +1,7 @@
 {
-  "name": "webpack-react-setting",
+  "name": "travel-sns-front",
   "version": "1.0.0",
-  "description": "this is webpack react babel setting project.",
+  "description": "travel-sns-front",
   "main": "index.js",
   "dependencies": {
     "@babel/core": "^7.5.5",

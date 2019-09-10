@@ -5,7 +5,7 @@ import RoutePage from "Src/RoutePage.js"
 
 const App = () => {
     return (<div>
-      <Router>
+      <Router basename="/travel-sns-front">
         <Menu/>
         <RoutePage/>
       </Router>
