@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,500,700,900&display=swap&subset=korean");
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Noto Sans KR", -apple-system, system-ui, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  padding: unset;
+  margin: unset;
+}
+
+input {
+  outline: none;
+}
+
+.Container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.MainFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+  height: 70%;
+  z-index: 1;
+}
+
+.Title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.MainTitle {
+  font-size: 4.5rem;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+}
+
+.SubTitle {
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  text-align: right;
+}
+
+.LoginFrame {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.InputFrame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  /* background:#ffffff70; */
+  border-bottom: 2px solid white;
+  margin-bottom: 0.5rem;
+  /* border-radius:5px; */
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.InputTag {
+  width: 100%;
+  height: 2.5rem;
+  /* color:#5d5d5d; */
+  color: white;
+  padding-left: 1rem;
+  background: none;
+  border: none;
+}
+
+.UserIcon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.PwIcon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+.ActiveBtn {
+  width: 80%;
+  height: 2.5rem;
+  font-size: 0.8rem;
+  color: white;
+  border-radius: 5px;
+  background: #0978fe;
+  border: none;
+  margin-bottom: 0.5rem;
+}
+
+.ActiveBtn:nth-child(2) {
+  background: #31a0ff;
+}
+
+.BottomFrame {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  padding-top: 0.6rem;
+  border-top: 1px solid white;
+}
+
+.SeeMore {
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
+  width: 50%;
+}
+
+.seeMore:nth-child(1) {
+  border-right: 1px solid white;
+}
+
+@keyframes bgSlider {
+  0% {
+    background-image: url("https://github.com/dev4us/interpark-study-ui/blob/master/src/Assets/Images/bgSlider1.jpg?raw=true");
+  }
+  25% {
+    background-image: url("https://github.com/dev4us/interpark-study-ui/blob/master/src/Assets/Images/bgSlider2.jpg?raw=true");
+  }
+  50% {
+    background-image: url("https://github.com/dev4us/interpark-study-ui/blob/master/src/Assets/Images/bgSlider3.jpg?raw=true");
+  }
+  75% {
+    background-image: url("https://github.com/dev4us/interpark-study-ui/blob/master/src/Assets/Images/bgSlider4.jpg?raw=true");
+  }
+  100% {
+    background-image: url("https://github.com/dev4us/interpark-study-ui/blob/master/src/Assets/Images/bgSlider5.jpg?raw=true");
+  }
+}
+
+.BackgroundSlider {
+  position: absolute;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  animation: bgSlider 15s infinite linear;
+}
