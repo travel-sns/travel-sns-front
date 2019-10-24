@@ -47,7 +47,7 @@
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --open --mode development",
     "test": "mocha",
-    "jest-test": "jest -c jest.config.js --watch"
+    "jest-test": "jest -c jest.config.js --watch "
   },
   "repository": {
     "type": "git",
